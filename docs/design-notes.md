@@ -18,3 +18,8 @@ Only published property records with a coordinate pair become markers. Exact ove
 
 The search-method chooser and full-screen map/condition-panel organization were informed by the user-provided reference https://ongchuxomtro.com/ . No competitor logos, photos, listing inventory or proprietary source code were copied.
 Nearby markers use leaflet.markercluster 1.5.3, bundled with its MIT license in public/vendor/leaflet/markercluster-LICENSE.
+
+## Calm basemap and viewed state
+The default vector background is ONIKI Light, derived from https://tiles.openfreemap.org/styles/positron . The local style removes shields and secondary water labels, reduces minor-road labels at low zoom and uses soft neutral land colors with pale-blue water. Attribution remains visible: OpenFreeMap, OpenMapTiles and OpenStreetMap.
+Integration follows https://openfreemap.org/quick_start/ and https://github.com/maplibre/maplibre-gl-leaflet . Browser renderer: MapLibre GL JS 5.7.1 from unpkg; the Leaflet bridge is pinned to 0.0.22 and bundled with its ISC license. A muted raster layer is the compatibility fallback.
+Viewed property IDs persist locally in the user's browser, capped at 800. Single-property popup opening and detail-page navigation mark a property as viewed; grouped markers only fade when all contained properties have been viewed. The state is restored on reload/back navigation and propagated to other tabs through the browser storage event. No browsing history is uploaded to the server.
