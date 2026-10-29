@@ -213,7 +213,12 @@ class OnikiController extends Controller
             abort_unless($request->user()->role === 'admin' || $listing->user_id === $request->user()->id, 403);
         }
 
-        return view('oniki.edit', ['listing' => $listing ?? new Listing]);
+        if (! $listing) {
+            $kind = $request->query('kind') === 'job' ? 'job' : 'property';
+            $listing = new Listing(['kind' => $kind, 'category' => $kind === 'job' ? 'fulltime' : 'rent']);
+        }
+
+        return view('oniki.edit', ['listing' => $listing]);
     }
 
     public function save(Request $request, ?Listing $listing = null)
