@@ -2,6 +2,10 @@
 
 Ứng dụng Laravel 12 (PHP 8.2+) có trang công khai tiếng Việt và tiếng Nhật, quản lý tin và tiếp nhận yêu cầu tư vấn.
 
+Nhận diện sử dụng logo ONIKI GLOBAL do công ty cung cấp, xanh dương chủ đạo và xanh lá làm điểm nhấn. Logo gốc được giữ nguyên trong public/oniki-global-logo.png, hiển thị ở đầu trang, chân trang và khu nội bộ.
+
+Phần việc làm dùng thêm logo ONIKI キャリアサポートセンター được cung cấp trong public/oniki-career-logo.png, trên mục dịch vụ, khu vực việc làm trang chủ, đầu trang tuyển dụng và trang chi tiết việc làm. Cả hai ảnh logo được giữ nguyên màu sắc và nội dung.
+
 ## Chạy ứng dụng
 
 Cài PHP, Composer và các extension Laravel yêu cầu (gồm pdo_sqlite hoặc pdo_mysql).
