@@ -17,6 +17,16 @@
   try {
    vector=L.maplibreGL({style:config.styleUrl,interactive:false,attributionControl:false,attribution:'<a href="https://openfreemap.org/">OpenFreeMap</a> &copy; <a href="https://www.openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
    const gl=vector.getMaplibreMap();let loaded=false,failed=false;
+   // Original road-number badges, drawn locally to fit the label text.
+   gl.on('styleimagemissing',event=>{
+    if(!['oniki-route-blue','oniki-route-green'].includes(event.id)||gl.hasImage(event.id))return;
+    const canvas=document.createElement('canvas');canvas.width=64;canvas.height=44;
+    const context=canvas.getContext('2d');
+    context.beginPath();context.roundRect(2,2,60,40,event.id==='oniki-route-green'?6:14);
+    context.fillStyle=event.id==='oniki-route-green'?'#669a3f':'#3e80c4';context.fill();
+    context.lineWidth=3;context.strokeStyle='#ffffff';context.stroke();
+    gl.addImage(event.id,context.getImageData(0,0,64,44),{pixelRatio:2});
+   });
    gl.on('load',()=>{loaded=true;});
    gl.on('error',()=>{if(!loaded&&!failed){failed=true;raster();}});
    return vector;
