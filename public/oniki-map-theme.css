@@ -14,3 +14,6 @@
 .property-map .oniki-cluster.cluster-viewed{opacity:.4}
 .property-is-viewed .listing-art{opacity:.55}
 .property-is-viewed .listing-content{opacity:.72}
+#property-address-results{display:grid;gap:8px;margin:12px 0}
+#property-address-results button{justify-content:flex-start;text-align:left;white-space:normal}
+#property-address-status{font-size:13px;color:#315f82}

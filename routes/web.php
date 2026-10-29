@@ -25,6 +25,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [Workspace::class, 'login']);
 });
 Route::middleware(['auth', ActiveUser::class])->group(function () {
+    Route::post('/content/property-address', \App\Http\Controllers\PropertyAddressController::class)->middleware('throttle:10,1')->name('content.property-address');
     Route::get('/content', [OnikiController::class, 'manage'])->name('content.index');
     Route::get('/content/create', [OnikiController::class, 'edit'])->name('content.create');
     Route::post('/content', [OnikiController::class, 'save'])->name('content.store');

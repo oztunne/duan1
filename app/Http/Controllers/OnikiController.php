@@ -231,6 +231,7 @@ class OnikiController extends Controller
             throw ValidationException::withMessages(['category' => 'Phân loại chưa phù hợp với dịch vụ đã chọn.']);
         }
         $property = $request->validate([
+            'address' => 'nullable|string|max:300',
             'city' => ['nullable', Rule::in(['osaka', 'tokyo', 'kyoto', 'kobe', 'fukuoka'])],
             'latitude' => 'nullable|required_with:longitude|numeric|between:20,46',
             'longitude' => 'nullable|required_with:latitude|numeric|between:122,154',
@@ -239,7 +240,7 @@ class OnikiController extends Controller
             'floor_plan' => ['nullable', Rule::in(['1R', '1K', '1DK', '1LDK', '2K', '2DK', '2LDK', '3LDK', '4LDK'])],
             'station' => 'nullable|string|max:200',
         ]);
-        foreach (['city', 'latitude', 'longitude', 'price_yen', 'area_sqm', 'floor_plan', 'station'] as $field) {
+        foreach (['address', 'city', 'latitude', 'longitude', 'price_yen', 'area_sqm', 'floor_plan', 'station'] as $field) {
             $data[$field] = $data['kind'] === 'property' ? ($property[$field] ?? null) : null;
         }
 

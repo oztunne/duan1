@@ -26,10 +26,33 @@
   const lat=document.getElementById('latitude'),lng=document.getElementById('longitude');
   const map=L.map(picker,{scrollWheelZoom:false,maxZoom:19,minZoom:5,maxBounds:[[20,122],[46,154]],maxBoundsViscosity:.8}).setView(cities.osaka,12); tiles(map);
   let dot;
+  const address=document.getElementById('property-address'),search=document.getElementById('find-property-address'),status=document.getElementById('property-address-status'),results=document.getElementById('property-address-results');
+  let requestVersion=0;
   const setPoint=(a,b)=>{ if(dot) dot.setLatLng([a,b]); else dot=L.circleMarker([a,b],{radius:10,color:'#fff',weight:3,fillColor:'#175eb1',fillOpacity:1}).addTo(map); };
   const fromInputs=()=>{if(lat.value!=='' && lng.value!=='' && Number.isFinite(Number(lat.value)) && Number.isFinite(Number(lng.value))) {setPoint(Number(lat.value),Number(lng.value));map.setView([Number(lat.value),Number(lng.value)],15);} };
-  map.on('click',e=>{lat.value=e.latlng.lat.toFixed(7);lng.value=e.latlng.lng.toFixed(7);setPoint(e.latlng.lat,e.latlng.lng);});
+  map.on('click',e=>{requestVersion++;results?.replaceChildren();lat.value=e.latlng.lat.toFixed(7);lng.value=e.latlng.lng.toFixed(7);setPoint(e.latlng.lat,e.latlng.lng);if(status)status.textContent='Đã chọn vị trí trên bản đồ. Bạn có thể lưu tin.';});
   lat.addEventListener('change',fromInputs);lng.addEventListener('change',fromInputs);fromInputs();
+  address?.addEventListener('input',()=>{
+   requestVersion++;lat.value='';lng.value='';if(dot){map.removeLayer(dot);dot=null;}results.replaceChildren();status.textContent='Địa chỉ đã thay đổi. Hãy tìm lại hoặc chọn vị trí mới trên bản đồ.';
+  });
+  const findAddress=async()=>{
+   const query=address.value.trim();if(query.length<3){status.textContent='Nhập địa chỉ nhà trước khi tìm.';address.focus();return;}
+   const version=++requestVersion;results.replaceChildren();search.disabled=true;status.textContent='Đang tìm địa chỉ…';
+   try {
+    const response=await fetch(search.dataset.url,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json','X-CSRF-TOKEN':picker.closest('form').querySelector('[name="_token"]').value},body:JSON.stringify({address:query})});
+    const data=await response.json();if(version!==requestVersion)return;
+    if(!response.ok)throw new Error(response.status===429?'Bạn tìm quá nhanh. Hãy thử lại sau một phút.':(data.message||'Chưa tìm được địa chỉ. Hãy thử lại.'));
+    if(!data.results.length){status.textContent='Không tìm thấy. Hãy viết địa chỉ bằng tiếng Nhật hoặc chọn vị trí trực tiếp trên bản đồ.';return;}
+    status.textContent='Chọn địa chỉ phù hợp bên dưới, rồi kiểm tra ghim trên bản đồ.';
+    for(const item of data.results){
+     const button=document.createElement('button');button.type='button';button.className='secondary small';button.textContent=item.label;
+     button.addEventListener('click',()=>{lat.value=item.latitude;lng.value=item.longitude;fromInputs();results.replaceChildren();status.textContent='Đã đặt ghim tại '+item.label+'. Nếu chưa chính xác, nhấp bản đồ để chỉnh lại.';});results.append(button);
+    }
+   }catch(error){if(version===requestVersion)status.textContent=error instanceof SyntaxError?'Phiên đăng nhập hoặc kết nối đã hết hạn. Tải lại trang rồi thử lại.':error.message;}
+   finally{search.disabled=false;}
+  };
+  search?.addEventListener('click',findAddress);
+  address?.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();if(!search.disabled)findAddress();}});
   const kind=document.getElementById('kind');
   const update=()=>{const section=document.querySelector('[data-property-fields]');if(section) section.hidden=kind.value!=='property';if(kind.value==='property') requestAnimationFrame(()=>map.invalidateSize());};
   kind?.addEventListener('change',update);if(kind) update();
