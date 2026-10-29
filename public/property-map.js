@@ -43,7 +43,7 @@
  const seen=points=>points.every(p=>window.ONIKIViewed?.has(p.id));
  const markPopup=points=>{if(points.length===1)window.ONIKIViewed?.mark(points[0].id);};
  const refreshMarkers=()=>{
-  for(const item of markerRecords){const element=item.marker.getElement();if(element){element.classList.toggle('map-marker-viewed',seen(item.points));const priceLabel=element.querySelector('.map-price-label');if(priceLabel){priceLabel.textContent=item.points.length>1?item.points.length+' ⌂':item.points[0].price;if(seen(item.points)){const tag=document.createElement('small');tag.className='marker-viewed-label';tag.textContent=document.documentElement.lang==='ja'?'閲覧済み':'Đã xem';priceLabel.append(tag);}}element.setAttribute('aria-label',item.points[0].title+(seen(item.points)?' · '+(document.documentElement.lang==='ja'?'閲覧済み':'Đã xem'):''));}}
+  for(const item of markerRecords){const element=item.marker.getElement();if(element)element.classList.toggle('map-marker-viewed',seen(item.points));}
   clusters.refreshClusters?.();
  };
  document.addEventListener('oniki:viewed-change',refreshMarkers);
@@ -54,8 +54,10 @@
  }
  const groups=[];
  for(const points of grouped.values()) {
-  const p=points[0],badge=document.createElement('span');badge.className='map-price-label';badge.textContent=points.length>1?points.length+' ⌂':p.price;
-  const marker=L.marker([p.lat,p.lng],{title:p.title,icon:L.divIcon({className:'oniki-price-marker',html:badge,iconSize:null,iconAnchor:[35,18]})}).addTo(clusters);
+  const p=points[0],badge=document.createElement('span');badge.className='house-pin';
+  badge.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 48" aria-hidden="true"><path d="M18 46C14 35 2 25 2 17a16 16 0 1 1 32 0c0 8-12 18-16 29Z" fill="#ff2f78" stroke="#fff" stroke-width="2"/><circle cx="18" cy="17" r="10.2" fill="#fff"/><path d="m10.5 16 7.5-6.8 7.5 6.8h-2v7h-4v-5h-3v5h-4v-7Z" fill="#ff2f78"/></svg>';
+  if(points.length>1){const count=document.createElement('b');count.textContent=points.length;badge.append(count);}
+  const marker=L.marker([p.lat,p.lng],{title:p.title,alt:p.title,icon:L.divIcon({className:'oniki-house-marker',html:badge,iconSize:[32,44],iconAnchor:[16,43],popupAnchor:[0,-38]})}).addTo(clusters);
   marker._onikiPoints=points;markerRecords.push({marker,points});
   marker.on('add',refreshMarkers);
   marker.on('popupopen',()=>{markPopup(points);refreshMarkers();});

@@ -57,9 +57,9 @@ Minh họa phố Nhật là SVG tự tạo, không phải ảnh của bất đ�
 
 ## Tìm nhà trên bản đồ
 
-Nền bản đồ mặc định là **ONIKI Light**, tùy biến từ OpenFreeMap Positron: nền xám sáng, sông xanh nhạt và giảm nhãn phụ. MapLibre GL JS 5.7.1 được tải từ CDN, kết hợp Leaflet; trình duyệt không hỗ trợ sẽ dùng lớp raster tương thích đã giảm màu. ONIKI_MAP_STYLE cho phép đổi URL style; ONIKI_MAP_TILES dùng cho lớp dự phòng.
+Nền bản đồ mặc định là **ONIKI Live**, tùy biến từ OpenFreeMap Bright: màu tươi, sông xanh, công viên xanh lá và đường rõ. Nhà dùng ghim hồng có hình ngôi nhà, cụm nhà dùng vòng tròn xanh. MapLibre GL JS 5.7.1 được tải từ CDN, kết hợp Leaflet; trình duyệt không hỗ trợ dùng lớp raster tương thích. ONIKI_MAP_STYLE cho phép đổi URL style; ONIKI_MAP_TILES dùng cho lớp dự phòng.
 
-Nhà đã mở popup riêng hoặc xem trang chi tiết được đánh dấu **Đã xem**, điểm và thẻ nhà hiển thị nhạt hơn. Trạng thái lưu tối đa 800 mã tin trong localStorage của trình duyệt, dùng chung giữa bản Việt/Nhật, không gửi lên máy chủ và không đồng bộ giữa thiết bị. Cụm chỉ chuyển sang trạng thái đã xem khi tất cả nhà trong cụm đã xem.
+Nhà đã mở popup riêng hoặc xem trang chi tiết chỉ hiển thị nhạt hơn; không có chữ, nhãn hoặc chú giải đã xem trên giao diện. Trạng thái lưu tối đa 800 mã tin trong localStorage của trình duyệt, dùng chung giữa bản Việt/Nhật, không gửi lên máy chủ và không đồng bộ giữa thiết bị. Cụm chỉ nhạt đi khi tất cả nhà trong cụm đã xem.
 
 Trang bất động sản mặc định hiển thị danh sách cạnh bản đồ Leaflet / OpenStreetMap. Có bộ lọc thành phố, ngân sách (thuê: yên/tháng; mua: tổng giá bán), kiểu phòng và từ khóa; nút “Tìm trong khu vực này” áp dụng giới hạn vùng đang xem. Chuyển Việt–Nhật giữ các bộ lọc và vùng bản đồ. Có chế độ danh sách riêng, giao diện điện thoại và thông báo khi không tải được bản đồ.
 

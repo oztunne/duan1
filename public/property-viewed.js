@@ -4,7 +4,6 @@
  let viewed=new Set(read());
  const refreshCards=()=>document.querySelectorAll('[data-property-card]').forEach(card=>{
   const seen=viewed.has(Number(card.dataset.propertyCard));card.classList.toggle('property-is-viewed',seen);
-  const badge=card.querySelector('.property-viewed-badge');if(badge)badge.hidden=!seen;
  });
  const notify=()=>{refreshCards();document.dispatchEvent(new Event('oniki:viewed-change'));};
  window.ONIKIViewed={

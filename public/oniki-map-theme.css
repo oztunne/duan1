@@ -1,27 +1,16 @@
-/* Calm basemap and clear visited/unvisited property states. */
-.property-map,#property-location-picker{background:#f5f8fb}
-.oniki-muted-raster{filter:saturate(.12) contrast(.78) brightness(1.12)}
+/* Brighter neighborhood map, house pins and subtle viewed-state fading. */
+.property-map,#property-location-picker{background:#eaf4f8}
+.oniki-muted-raster{filter:saturate(.78) contrast(.95) brightness(1.02)}
 .leaflet-maplibre-gl,.leaflet-gl-layer{pointer-events:none}
-.map-price-label{border-color:#c96a25;background:#fffaf5;color:#733d17;box-shadow:0 3px 10px #243b5426}
-.leaflet-marker-icon:hover .map-price-label,.leaflet-marker-icon:focus .map-price-label{background:#bd5e1b;border-color:#bd5e1b;color:white}
-.property-map .oniki-cluster{background:#f69b4c40;border-color:#f6a66c77}
-.property-map .oniki-cluster span{background:#c2631c;color:#fff}
-.map-marker-viewed{opacity:.55!important}
-.map-marker-viewed .map-price-label{background:#edf1f5;border-color:#92a3b5;color:#49617a;box-shadow:0 2px 6px #20355012}
-.map-marker-viewed:hover,.map-marker-viewed:focus{opacity:.75!important}
-.leaflet-marker-icon.map-marker-viewed:hover .map-price-label,.leaflet-marker-icon.map-marker-viewed:focus .map-price-label{background:#e6edf3;border-color:#8298ad;color:#35516d}
-.marker-viewed-label{display:block;font-size:8px;margin-top:2px;font-weight:500}
-.property-map .oniki-cluster.cluster-viewed{background:#bac6d33d;border-color:#b0bdcb66;opacity:.65}
-.property-map .oniki-cluster.cluster-viewed span{background:#8295a9;color:#fff}
-.property-is-viewed{border-color:#dce4ec;background:#f8fafc}
-.property-is-viewed .listing-art{opacity:.58;filter:saturate(.4)}
-.property-is-viewed .listing-content h3{color:#6b8093}
-.property-viewed-badge{display:inline-block;font-size:9px;font-weight:600;padding:3px 8px;border-radius:20px;background:#e9eef3;color:#5c748b;margin-bottom:7px}
-.property-viewed-badge[hidden]{display:none}
-.property-map-popup .viewed-popup-label{font-size:9px;color:#758a9e}
-.map-legend{display:flex;align-items:center;gap:14px;font-size:10px;color:#657b91;padding:9px 15px;border-top:1px solid #e0e8ef;background:#fff;flex-wrap:wrap}
-.map-legend>span{display:flex;align-items:center;gap:6px}
-.map-legend i{display:block;width:10px;height:10px;border-radius:50%;background:#c2631c}
-.map-legend .viewed-dot{background:#a6b5c4;opacity:.65}
-.map-app .map-legend{font-size:9px;padding:7px 15px;flex-shrink:0}
-@media(max-width:600px){.map-app .map-legend{font-size:8px;gap:10px;padding:6px 10px}}
+.oniki-house-marker{background:transparent;border:0}
+.house-pin{display:block;position:relative;width:32px;height:44px;filter:drop-shadow(0 2px 2px #21394f25)}
+.house-pin svg{display:block;width:100%;height:100%}
+.house-pin>b{position:absolute;top:-4px;right:-5px;display:grid;place-items:center;min-width:17px;height:17px;padding:0 3px;border-radius:10px;background:#fff;border:1px solid #ff2f78;color:#b41350;font:600 9px/1 system-ui}
+.leaflet-marker-icon:hover .house-pin,.leaflet-marker-icon:focus .house-pin{filter:drop-shadow(0 3px 5px #d71b6366)}
+.property-map .oniki-cluster{background:#66b2f340;border:5px solid #8cc8f666;box-shadow:0 0 0 4px #74bdf017;border-radius:50%}
+.property-map .oniki-cluster span{background:#429be0;color:#fff}
+.map-marker-viewed{opacity:.38!important}
+.map-marker-viewed:hover,.map-marker-viewed:focus{opacity:.6!important}
+.property-map .oniki-cluster.cluster-viewed{opacity:.4}
+.property-is-viewed .listing-art{opacity:.55}
+.property-is-viewed .listing-content{opacity:.72}
