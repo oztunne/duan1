@@ -199,9 +199,12 @@
             // gl.setView([center.lat, center.lng], this._map.getZoom() - 1, 0);
             // calling setView directly causes sync issues because it uses requestAnimFrame
 
-            var tr = gl.transform;
-            tr.center = maplibregl.LngLat.convert([center.lng, center.lat]);
-            tr.zoom = this._map.getZoom() - 1;
+            // MapLibre 5 must receive camera changes through its public API so
+            // source tiles and the rendered frame move with Leaflet's markers.
+            gl.jumpTo({
+                center: [center.lng, center.lat],
+                zoom: this._map.getZoom() - 1
+            });
         },
 
         // update the map constantly during a pinch zoom
