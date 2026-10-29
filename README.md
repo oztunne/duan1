@@ -30,7 +30,7 @@ php artisan test
 php artisan view:cache
 ```
 Bộ kiểm thử dùng SQLite in-memory, không tác động database thật.
-Đã kiểm tra 8 tests / 62 assertions trên PHP 8.2.12. Chưa kiểm tra trực quan bằng trình duyệt trên thiết bị thật.
+Đã kiểm tra 8 tests / 62 assertions trên PHP 8.2.12. Đã kiểm tra trình duyệt ở viewport 1440px và 390px: trang giới thiệu, đăng nhập quản trị/nhân viên và cập nhật tiến độ. Chưa kiểm tra trên thiết bị điện thoại vật lý.
 
 ## Triển khai
 Đặt document root của Apache/Nginx tại **public/**, không phải gốc repository.
