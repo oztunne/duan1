@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [OnikiController::class, 'home'])->name('home');
 Route::get('/listing-images/{listing}', [OnikiController::class, 'image'])->name('content.image');
 Route::prefix('{locale}')->where(['locale' => 'vi|ja'])->group(function () {
+    Route::get('/find-home',[OnikiController::class,'finder'])->name('oniki.finder');
+    Route::get('/property-map',[OnikiController::class,'mapPage'])->name('oniki.property-map');
+    Route::get('/property-points', [OnikiController::class, 'mapPoints'])->name('oniki.points');
     Route::get('/', [OnikiController::class, 'home'])->name('oniki.home');
     Route::get('/listings/{kind}', [OnikiController::class, 'index'])->where('kind', 'property|job')->name('oniki.index');
     Route::get('/listings/{kind}/{listing}', [OnikiController::class, 'show'])->where('kind', 'property|job')->name('oniki.show');

@@ -1,0 +1,2 @@
+@push('head')<link rel="stylesheet" href="{{ asset('vendor/leaflet/MarkerCluster.css') }}"><link rel="stylesheet" href="{{ asset('vendor/leaflet/leaflet.css') }}">@endpush
+@push('scripts')<script src="{{ asset('vendor/leaflet/leaflet.js') }}" defer></script><script src="{{ asset('vendor/leaflet/leaflet.markercluster.js') }}" defer></script><script src="{{ asset('property-map.js') }}" defer></script>@endpush

@@ -1,0 +1,20 @@
+# ONIKI Living — Visual and map notes
+
+The architectural hero is a generated marketing illustration, not an image of an actual property being offered. Website captions explicitly identify it as an illustration.
+
+Final asset: public/oniki-living-hero.jpg (1536 × 1024, JPEG export from original generated PNG).
+Generation mode: built-in ImageGen.
+Final prompt:
+> Create a high-end photorealistic architectural editorial photograph for ONIKI Japanese real estate website hero. Wide landscape composition 3:2. Contemporary Japanese residential neighborhood in Osaka with elegant modern white-and-warm-wood low-rise apartments, lush small gardens, clean quiet street, balcony details, warm interior lights at blue hour, rich deep cobalt evening sky. Aspirational but realistic Japanese architecture, cinematic natural light, premium property magazine photography, crisp details, no people, no logos, no text, no watermarks, no advertising signs. This is a clearly illustrative marketing image, not a specific listed property. Compose buildings prominently at center and right, left foreground subdued for adjacent website typography. Output high resolution landscape image.
+
+Both company logos are original files supplied by the user and are unchanged.
+
+## Map implementation
+Leaflet 1.9.4 is bundled in public/vendor/leaflet with its original license.
+Sources: https://leafletjs.com/examples/quick-start/ and https://operations.osmfoundation.org/policies/tiles/
+
+Map tiles load directly from OpenStreetMap over HTTPS, with visible attribution and ordinary browser caching. There is no bulk download, prefetch or offline map feature. The tile provider URL can be changed through ONIKI_MAP_TILES; preserve the appropriate provider attribution if replacing the provider.
+Only published property records with a coordinate pair become markers. Exact overlapping points share a popup. No sample property remains in the local database after QA; automated tests use in-memory SQLite.
+
+The search-method chooser and full-screen map/condition-panel organization were informed by the user-provided reference https://ongchuxomtro.com/ . No competitor logos, photos, listing inventory or proprietary source code were copied.
+Nearby markers use leaflet.markercluster 1.5.3, bundled with its MIT license in public/vendor/leaflet/markercluster-LICENSE.

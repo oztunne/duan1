@@ -1,0 +1,1 @@
+@foreach($fields as $filter)@if(request()->filled($filter))@if(is_array(request($filter)))@foreach(request($filter) as $value)<input type="hidden" name="{{ $filter }}[]" value="{{ $value }}">@endforeach @else<input type="hidden" name="{{ $filter }}" value="{{ request($filter) }}">@endif @endif @endforeach

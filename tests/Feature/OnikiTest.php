@@ -40,8 +40,8 @@ class OnikiTest extends TestCase
     public function test_bilingual_public_pages(): void
     {
         $this->get('/')->assertOk()->assertSee('ONIKI');
-        $this->get('/vi')->assertOk()->assertSee('An tâm nơi ở.');
-        $this->get('/ja')->assertOk()->assertSee('安心できる住まい。')->assertSee('lang="ja"', false);
+        $this->get('/vi')->assertOk()->assertSee('Một nơi để an tâm.');
+        $this->get('/ja')->assertOk()->assertSee('安心できる場所から。')->assertSee('lang="ja"', false);
         foreach (['/vi/listings/property', '/ja/listings/job', '/vi/about', '/ja/contact', '/ja/privacy'] as $url) {
             $this->get($url)->assertOk();
         }

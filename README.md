@@ -22,6 +22,8 @@ PowerShell: dùng `Copy-Item .env.example .env` để tạo file môi trường.
 
 - Trang Việt: http://localhost:8000/vi
 - Trang Nhật: http://localhost:8000/ja
+- Tìm bất động sản: http://localhost:8000/vi/find-home
+- Bản đồ toàn màn hình: http://localhost:8000/vi/property-map
 - Đăng nhập nội bộ: http://localhost:8000/login
 
 Lệnh tạo quản trị viên hỏi tên/email và mật khẩu nhập ẩn. Không có tài khoản mặc định trong mã nguồn.
@@ -53,13 +55,21 @@ Quản trị viên vào **Tin đăng → Thêm tin**, nhập đủ hai ngôn ng�
 Tất cả tin, thông tin pháp nhân, thông tin riêng tư và bản dịch cần được công ty duyệt trước khi sử dụng công khai.
 Minh họa phố Nhật là SVG tự tạo, không phải ảnh của bất động sản đang chào thuê/bán.
 
-## Kiểm thử
+## Tìm nhà trên bản đồ
+
+Trang bất động sản mặc định hiển thị danh sách cạnh bản đồ Leaflet / OpenStreetMap. Có bộ lọc thành phố, ngân sách (thuê: yên/tháng; mua: tổng giá bán), kiểu phòng và từ khóa; nút “Tìm trong khu vực này” áp dụng giới hạn vùng đang xem. Chuyển Việt–Nhật giữ các bộ lọc và vùng bản đồ. Có chế độ danh sách riêng, giao diện điện thoại và thông báo khi không tải được bản đồ.
+
+Khi soạn tin bất động sản, chọn thành phố, giá dạng số, thông tin phòng và nhấp bản đồ để chọn tọa độ được phép công khai. Tin không có tọa độ vẫn hiện trong danh sách. Tin nháp và tin việc làm không xuất hiện trên bản đồ. Tối đa 500 điểm mới nhất phù hợp được hiển thị; danh sách có phân trang đầy đủ. Không có geocoding tự động hay nhập dữ liệu từ website BĐS khác.
+
+Bản đồ nền cần kết nối Internet. Có thể cấu hình ONIKI_MAP_TILES cho nhà cung cấp tương thích; ghi nguồn theo điều khoản của nhà cung cấp. Chi tiết thư viện và nguồn hình ảnh: docs/design-notes.md.
+
+## Kiểm chứng bản đồ và giao diện mới
 
 ```sh
 php artisan test
 php artisan view:cache
 ```
-14 tests / 128 assertions trên SQLite in-memory: phân quyền tài khoản và tin, hai ngôn ngữ, lọc tìm kiếm, ẩn bản nháp, tải ảnh và kiểm soát ảnh nháp, yêu cầu tư vấn.
+23 tests / 223 assertions trên SQLite in-memory: phân quyền tài khoản và tin, hai ngôn ngữ, lọc tìm kiếm, ẩn bản nháp, tải ảnh và kiểm soát ảnh nháp, yêu cầu tư vấn.
 Đã kiểm tra giao diện trình duyệt tại viewport 1440px và 390px, chuyển ngôn ngữ và gửi biểu mẫu tiếng Nhật. Chưa kiểm tra trên điện thoại vật lý.
 
 ## Triển khai
@@ -69,3 +79,16 @@ php artisan view:cache
 Không commit .env, database, ảnh tải lên hoặc vendor. Dùng database session khi cần thu hồi ngay các phiên sau khi khóa nhân viên.
 
 index.html là ảnh chụp HTML tĩnh của trang chủ Việt để xem hình thức; các đường dẫn danh mục, ngôn ngữ và biểu mẫu cần Laravel. GitHub Pages không thể chạy backend PHP. Không xem đăng lên GitHub là đã triển khai hosting.
+
+## Luồng tìm bất động sản theo mẫu tham khảo
+
+Phần bất động sản lấy cảm hứng từ cách tổ chức tìm kiếm trên ongchuxomtro.com, với giao diện, logo và dữ liệu riêng của ONIKI:
+- Chọn một trong 8 vùng tìm kiếm, rồi tìm theo tỉnh/quận, tuyến/ga hoặc bản đồ.
+- Danh mục 47 tỉnh thành Nhật Bản; số tin theo tỉnh/quận/ga chỉ tính tin ONIKI đã xuất bản.
+- Thông tin tuyến/ga lấy từ dữ liệu người đăng nhập, không có danh mục ga hay kho nhà từ website khác.
+- Bản đồ toàn màn hình: cột Tỉnh thành / Quận / Điều kiện / Kết quả, cụm điểm nhà, popup và bộ lọc kết hợp.
+- Bộ lọc loại nhà, nhiều kiểu phòng, giá, diện tích, tiện ích, tuổi nhà, khoảng cách đến ga và các nhóm nhu cầu.
+- Khi đăng tin, bổ sung tỉnh, quận, tuyến/ga và các điều kiện đã xác nhận; dữ liệu chưa có không tự suy đoán.
+
+Đã kiểm tra giao diện Việt–Nhật ở desktop 1440px và điện thoại giả lập 390px, chọn cụm bản đồ, danh sách, nhiều điều kiện và bảng lọc trên điện thoại. Dữ liệu thử có nhãn rõ ràng đã được dọn sau kiểm tra. Không có tin thật nếu công ty chưa nhập nội dung.
+

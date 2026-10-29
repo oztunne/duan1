@@ -1,0 +1,11 @@
+<div class="map-shell"><div class="map-toolbar"><span><b>{{ $points->count() }}</b> {{ __('explore.mapcount') }}</span><button type="button" id="search-map-area" class="small">{{ __('explore.searcharea') }} ↗</button><button type="button" id="reset-map-area" class="small secondary">{{ __('explore.resetarea') }}</button></div><div id="property-map" class="property-map" role="region" aria-label="{{ __('explore.map') }}"></div><p id="map-feedback" class="map-feedback" role="status">@if($points->isEmpty()){{ __('explore.mapnone') }}@else{{ __('explore.reference') }}@endif</p><span class="map-limit">{{ __('explore.maplimit') }}</span><noscript><p>{{ __('explore.maperror') }}</p></noscript></div>
+@php
+$regionCenters=['hokkaido'=>[43.0618,141.3545],'tohoku'=>[38.2682,140.8694],'kanto'=>[35.6762,139.6503],'chubu'=>[35.1815,136.9066],'kansai'=>[34.6937,135.5023],'chugoku'=>[34.3853,132.4553],'shikoku'=>[34.3428,134.0466],'kyushu'=>[33.5902,130.4017]];
+$cityCenters=['osaka'=>[34.6937,135.5023],'tokyo'=>[35.6762,139.6503],'kyoto'=>[35.0116,135.7681],'kobe'=>[34.6901,135.1956],'fukuoka'=>[33.5902,130.4017]];
+$region=request('region');$city=request('city');
+if(request('prefecture')) {foreach(config('property.regions') as $key=>$codes)if(in_array(request('prefecture'),$codes))$region=$key;foreach(config('property.city_prefectures') as $key=>$code)if(request('prefecture')==$code)$city=$key;}
+$center=$cityCenters[$city]??$regionCenters[$region]??$cityCenters['osaka'];
+$zoom=isset($cityCenters[$city])?12:($region?8:12);
+$mapPayload=['center'=>$center,'zoom'=>$zoom,'points'=>$points,'city'=>request('city','osaka'),'bounds'=>request()->only(['north','south','east','west']),'tileUrl'=>config('oniki.map_tiles'),'labels'=>['error'=>__('explore.maperror'),'tileerror'=>__('explore.tileerror'),'details'=>__('oniki.details'),'reference'=>__('explore.reference')]];
+@endphp
+<script type="application/json" id="property-map-data">@json($mapPayload)</script>
