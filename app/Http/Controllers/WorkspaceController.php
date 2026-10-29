@@ -14,7 +14,7 @@ class WorkspaceController extends Controller {
    throw ValidationException::withMessages(['email'=>'Email hoặc mật khẩu không đúng, hoặc tài khoản đã bị khóa.']);
   }
   RateLimiter::clear($key); $request->session()->regenerate();
-  return redirect()->intended(route('dashboard'));
+  return redirect()->intended(route('content.index'));
  }
  public function logout(Request $request) { Auth::logout(); $request->session()->invalidate(); $request->session()->regenerateToken(); return redirect('/'); }
  public function dashboard(Request $request) {

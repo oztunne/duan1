@@ -1,0 +1,1 @@
+<div class="empty-listing"><div class="empty-symbol" aria-hidden="true">{{ ($service??'property')==='job'?'↗':'⌂' }}</div><div><h3>{{ __('oniki.empty') }}</h3><p>{{ __('oniki.emptydesc') }}</p></div><a class="text-link" href="{{ route('oniki.contact',['service'=>$service??'property']) }}">{{ __('oniki.contact') }} ↗</a></div>

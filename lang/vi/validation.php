@@ -1,0 +1,3 @@
+<?php
+
+return ['required' => 'Vui lòng nhập :attribute.', 'email' => ':attribute chưa đúng định dạng email.', 'accepted' => 'Vui lòng đồng ý với :attribute.', 'string' => ':attribute phải là văn bản.', 'in' => ':attribute không hợp lệ.', 'exists' => ':attribute không còn khả dụng.', 'max' => ['string' => ':attribute không được quá :max ký tự.', 'file' => ':attribute không được quá :max KB.'], 'min' => ['string' => ':attribute cần ít nhất :min ký tự.'], 'attributes' => ['name' => 'họ tên', 'email' => 'email', 'phone' => 'số điện thoại', 'service' => 'dịch vụ', 'message' => 'nội dung tư vấn', 'consent' => 'việc sử dụng thông tin liên hệ', 'listing_id' => 'tin được chọn', 'q' => 'từ khóa', 'website' => 'trường website']];

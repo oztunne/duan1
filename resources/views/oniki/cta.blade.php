@@ -1,0 +1,1 @@
+<section class="container contact-cta"><div><span class="kicker">LET’S TALK / お問い合わせ</span><h2>{{ __('oniki.cta') }}</h2><p>{{ __('oniki.ctadesc') }}</p></div><a class="button" href="{{ route('oniki.contact') }}">{{ __('oniki.contact') }} ↗</a></section>

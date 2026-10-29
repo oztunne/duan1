@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title','Công việc — Dự án 1')
+@section('title','Công việc — ONIKI')
 @section('content')
 <main class="container page"><div class="page-heading"><div><span class="eyebrow">{{ auth()->user()->role==='admin' ? 'Không gian quản trị' : 'Không gian nhân viên' }}</span><h1>Xin chào, {{ auth()->user()->name }}.</h1><p>Một ngày mới, những bước tiến mới.</p></div><a class="button secondary small" href="{{ route('account') }}">Quản lý tài khoản ↗</a></div>
 <div class="stats"><div class="stat"><span>Tổng công việc</span><strong>{{ $stats->count() }}</strong></div><div class="stat"><span>Đang thực hiện</span><strong>{{ $stats->where('status','doing')->count() }}</strong></div><div class="stat"><span>Đã hoàn thành</span><strong>{{ $stats->where('status','done')->count() }}</strong></div></div>
