@@ -1,0 +1,3 @@
+<?php
+
+return ['required' => ':attributeを入力してください。', 'email' => ':attributeの形式をご確認ください。', 'accepted' => ':attributeに同意してください。', 'string' => ':attributeは文字列で入力してください。', 'in' => ':attributeが正しくありません。', 'exists' => ':attributeは現在利用できません。', 'max' => ['string' => ':attributeは:max文字以内で入力してください。', 'file' => ':attributeは:max KB以内にしてください。'], 'min' => ['string' => ':attributeは:min文字以上で入力してください。'], 'attributes' => ['name' => 'お名前', 'email' => 'メールアドレス', 'phone' => '電話番号', 'service' => 'ご相談の種類', 'message' => 'お問い合わせ内容', 'consent' => 'お問い合わせ情報の利用', 'listing_id' => '選択した掲載情報', 'q' => 'キーワード', 'website' => 'ウェブサイト欄']];
